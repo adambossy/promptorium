@@ -77,7 +77,6 @@ Using `uv`:
 
 ```bash
 uv venv --python 3.12
-source .venv/bin/activate
 uv sync --extra dev
 uv run pre-commit install
 ```
@@ -127,26 +126,19 @@ Notes:
 ## Usage (Library)
 
 ```python
-from promptorium.services import PromptService
-from promptorium.storage.fs import FileSystemPromptStorage
-from promptorium.util.repo_root import find_repo_root
+from openai import OpenAI
+from promptorium import load_prompt
 
-storage = FileSystemPromptStorage(find_repo_root())
-svc = PromptService(storage)
+client = OpenAI()
 
-# Ensure a key exists (create with custom directory or default .prompts)
-ref = storage.add_prompt("onboarding", custom_dir=None)
+onboarding_instructions = load_prompt("onboarding-instructions")
 
-# Write versions
-v1 = svc.update_prompt("onboarding", "hello")
-v2 = svc.update_prompt("onboarding", "hello world")
+response = client.responses.create(
+    model="gpt-5",
+    input=onboarding_instructions
+)
 
-# Read latest or specific version
-latest_text = svc.load_prompt("onboarding")
-v1_text = svc.load_prompt("onboarding", version=1)
-
-# Build an inline diff result (rendered by CLI with rich colors)
-res = svc.diff_versions("onboarding", 1, 2, granularity="word")
+print(response.output_text)
 ```
 
 ---
@@ -184,11 +176,9 @@ Project configuration highlights:
 ## Roadmap
 
 - Additional storage backends (e.g., Git-backed, SQLite)
-- Prompt metadata (titles, tags) and search
-- Import/export helpers (JSON/YAML)
-- Batch operations and partial diffs
+- Interactive prompt improvement
 
----
+----
 
 ## Contributing
 
