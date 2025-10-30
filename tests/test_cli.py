@@ -4,7 +4,7 @@ from pathlib import Path
 
 from typer.testing import CliRunner
 
-from promptlib.cli import app
+from promptorium.cli import app
 
 
 def test_cli_add_update_list_load_delete() -> None:

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from promptlib.storage.fs import FileSystemPromptStorage
+from promptorium.storage.fs import FileSystemPromptStorage
 
 
 def test_default_add_and_versioning(tmp_path: Path) -> None:

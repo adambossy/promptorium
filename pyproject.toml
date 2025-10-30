@@ -3,7 +3,7 @@ requires = ["hatchling>=1.21"]
 build-backend = "hatchling.build"
 
 [project]
-name = "promptlib"
+name = "promptorium"
 version = "0.1.0"
 description = "CLI + library for managing versioned prompts"
 readme = "README.md"
@@ -16,7 +16,7 @@ dependencies = [
 ]
 
 [project.scripts]
-prompts = "promptlib.cli:app"
+prompts = "promptorium.cli:app"
 
 [project.optional-dependencies]
 dev = [
@@ -39,7 +39,7 @@ ignore = []
 extend-exclude = [".venv", "build", "dist"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["promptlib"]
+known-first-party = ["promptorium"]
 
 [tool.ruff.format]
 docstring-code-format = true
@@ -58,8 +58,8 @@ exclude = ["^\\.venv/"]
 
 [tool.hatch.build]
 include = [
-  "promptlib/**",
-  "promptlib/data/wordlist.txt",
+  "promptorium/**",
+  "promptorium/data/wordlist.txt",
 ]
 
 

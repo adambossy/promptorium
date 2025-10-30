@@ -23,7 +23,7 @@ class _WordList:
 
 def _load_wordlist() -> _WordList:
     # Load the embedded wordlist from package data
-    with resources.files("promptlib.data").joinpath("wordlist.txt").open("r", encoding="utf-8") as f:
+    with resources.files("promptorium.data").joinpath("wordlist.txt").open("r", encoding="utf-8") as f:
         words = tuple(w.strip() for w in f if w.strip() and not w.startswith("#"))
     return _WordList(words=words)
 

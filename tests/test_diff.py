@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from promptlib.util.diff import build_inline_diff
+from promptorium.util.diff import build_inline_diff
 
 
 def test_build_inline_diff_word() -> None:

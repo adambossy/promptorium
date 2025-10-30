@@ -1,4 +1,4 @@
-# Promptlib
+# Promptorium
 
 CLI + library for managing versioned prompts.
 
