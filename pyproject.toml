@@ -1,0 +1,65 @@
+[build-system]
+requires = ["hatchling>=1.21"]
+build-backend = "hatchling.build"
+
+[project]
+name = "promptlib"
+version = "0.1.0"
+description = "CLI + library for managing versioned prompts"
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [{ name = "Your Name" }]
+license = { text = "MIT" }
+dependencies = [
+  "typer>=0.12",
+  "rich>=13.0",
+]
+
+[project.scripts]
+prompts = "promptlib.cli:app"
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0",
+  "mypy>=1.10",
+  "ruff>=0.5.0",
+  "pre-commit>=3.7",
+]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+select = ["E", "F", "I", "UP"]
+ignore = []
+extend-exclude = [".venv", "build", "dist"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["promptlib"]
+
+[tool.ruff.format]
+docstring-code-format = true
+quote-style = "preserve"
+
+[tool.mypy]
+python_version = "3.12"
+strict = false
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_unreachable = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+show_error_codes = true
+exclude = ["^\\.venv/"]
+
+[tool.hatch.build]
+include = [
+  "promptlib/**",
+  "promptlib/data/wordlist.txt",
+]
+
+
