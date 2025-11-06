@@ -16,6 +16,7 @@ CLI and Python library for managing versioned prompts: add, update, list, diff, 
 ![Python](https://img.shields.io/badge/python-%E2%89%A53.12-blue)
 ![Typer](https://img.shields.io/badge/CLI-Typer-4E9A06)
 ![Rich](https://img.shields.io/badge/Output-Rich-8A2BE2)
+[![Twitter](https://img.shields.io/badge/Twitter-@abossy-1DA1F2?logo=twitter&logoColor=white)](https://twitter.com/abossy)
 
 </div>
 
