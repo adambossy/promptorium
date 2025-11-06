@@ -17,20 +17,20 @@ CLI and Python library for managing versioned prompts: add, update, list, diff, 
 
 ## Table of Contents
 
-1. About the Project
-   - Features
-   - How it works
-2. Getting Started
-   - Prerequisites
-   - Installation
-3. Usage (CLI)
-4. Usage (Library)
-5. Data Layout & Conventions
-6. Development
-7. Roadmap
-8. Contributing
-9. License
-10. Acknowledgments
+1. [About the Project](#about-the-project)
+   - [Features](#features)
+   - [How it works](#how-it-works)
+2. [Getting Started](#getting-started)
+   - [Prerequisites](#prerequisites)
+   - [Installation](#installation)
+3. [Usage (CLI)](#usage-cli)
+4. [Usage (Library)](#usage-library)
+5. [Data Layout & Conventions](#data-layout--conventions)
+6. [Development](#development)
+7. [Roadmap](#roadmap)
+8. [Contributing](#contributing)
+9. [License](#license)
+10. [Acknowledgments](#acknowledgments)
 
 ---
 
