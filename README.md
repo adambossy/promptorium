@@ -4,7 +4,13 @@
 
 CLI and Python library for managing versioned prompts: add, update, list, diff, load, and delete prompt versions on your filesystem.
 
-<br/>
+<p align="center">
+  <a href="https://github.com/othneildrew/Best-README-Template/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+  &middot;
+  <a href="https://github.com/othneildrew/Best-README-Template/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+  <br />
+  <br />
+</p>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 ![Python](https://img.shields.io/badge/python-%E2%89%A53.12-blue)
