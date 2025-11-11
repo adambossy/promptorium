@@ -18,5 +18,3 @@ def render_diff_to_console(result: DiffResult) -> None:
         elif seg.op == "delete":
             out.append(seg.text, style="red strike")
     console.print(out)
-
-

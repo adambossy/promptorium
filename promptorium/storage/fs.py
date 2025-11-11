@@ -2,9 +2,9 @@ from __future__ import annotations
 
 import json
 import re
+from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, List, Optional, Sequence, Tuple
 
 from ..domain import (
     PromptInfo,
@@ -16,14 +16,13 @@ from ..domain import (
 from ..util.io_safety import atomic_write_text
 from .base import StoragePort
 
-
 _SCHEMA_VERSION = 1
 
 
 @dataclass
 class _Meta:
     schema: int
-    custom_dirs: Dict[str, str]
+    custom_dirs: dict[str, str]
 
 
 class FileSystemPromptStorage(StoragePort):
@@ -70,18 +69,18 @@ class FileSystemPromptStorage(StoragePort):
         except Exception:
             return False
 
-    def _custom_dir_for_key(self, key: str) -> Optional[Path]:
+    def _custom_dir_for_key(self, key: str) -> Path | None:
         meta = self._load_meta()
         d = meta.custom_dirs.get(key)
         if d is None:
             return None
         return self._resolve_dir_value(d)
 
-    def _scan_default_versions(self, key: str) -> List[Tuple[int, Path]]:
+    def _scan_default_versions(self, key: str) -> list[tuple[int, Path]]:
         base = self._default_key_dir(key)
         if not base.exists():
             return []
-        versions: List[Tuple[int, Path]] = []
+        versions: list[tuple[int, Path]] = []
         for p in base.iterdir():
             if not p.is_file():
                 continue
@@ -91,9 +90,9 @@ class FileSystemPromptStorage(StoragePort):
         versions.sort(key=lambda t: t[0])
         return versions
 
-    def _scan_custom_versions(self, key: str, base_dir: Path) -> List[Tuple[int, Path]]:
+    def _scan_custom_versions(self, key: str, base_dir: Path) -> list[tuple[int, Path]]:
         pattern = re.compile(rf"^{re.escape(key)}-(\d+)\.md$")
-        versions: List[Tuple[int, Path]] = []
+        versions: list[tuple[int, Path]] = []
         if not base_dir.exists():
             return []
         for p in base_dir.iterdir():
@@ -118,14 +117,18 @@ class FileSystemPromptStorage(StoragePort):
         meta = self._load_meta()
         return key in meta.custom_dirs
 
-    def add_prompt(self, key: str, custom_dir: Optional[Path]) -> PromptRef:
+    def add_prompt(self, key: str, custom_dir: Path | None) -> PromptRef:
         self.ensure_initialized()
         if custom_dir is None:
             base = self._default_key_dir(key)
             base.mkdir(parents=True, exist_ok=True)
             return PromptRef(key=key, base_dir=base, managed_by_root=True)
 
-        base = (self.repo_root / custom_dir).resolve() if not custom_dir.is_absolute() else custom_dir.resolve()
+        base = (
+            (self.repo_root / custom_dir).resolve()
+            if not custom_dir.is_absolute()
+            else custom_dir.resolve()
+        )
         base.mkdir(parents=True, exist_ok=True)
         meta = self._load_meta()
         meta.custom_dirs[key] = self._store_dir_value(base)
@@ -145,7 +148,7 @@ class FileSystemPromptStorage(StoragePort):
         self.ensure_initialized()
         meta = self._load_meta()
 
-        keys: Dict[str, PromptRef] = {}
+        keys: dict[str, PromptRef] = {}
         # default-managed keys
         if self.root.exists():
             for p in self.root.iterdir():
@@ -156,7 +159,7 @@ class FileSystemPromptStorage(StoragePort):
             base = self._resolve_dir_value(dirval)
             keys[key] = PromptRef(key=key, base_dir=base, managed_by_root=False)
 
-        infos: List[PromptInfo] = []
+        infos: list[PromptInfo] = []
         for key, ref in sorted(keys.items(), key=lambda kv: kv[0]):
             if ref.managed_by_root:
                 pairs = self._scan_default_versions(key)
@@ -183,8 +186,12 @@ class FileSystemPromptStorage(StoragePort):
         atomic_write_text(path, content)
         return PromptVersion(key=key, version=next_ver, path=path)
 
-    def _latest_version_pair(self, key: str, ref: PromptRef) -> Tuple[int, Path]:
-        pairs = self._scan_default_versions(key) if ref.managed_by_root else self._scan_custom_versions(key, ref.base_dir)
+    def _latest_version_pair(self, key: str, ref: PromptRef) -> tuple[int, Path]:
+        pairs = (
+            self._scan_default_versions(key)
+            if ref.managed_by_root
+            else self._scan_custom_versions(key, ref.base_dir)
+        )
         if not pairs:
             raise VersionNotFound(f"No versions for key: {key}")
         return pairs[-1]
@@ -219,7 +226,7 @@ class FileSystemPromptStorage(StoragePort):
             self._save_meta(meta)
         return len(pairs)
 
-    def read_version(self, key: str, version: Optional[int]) -> str:
+    def read_version(self, key: str, version: int | None) -> str:
         ref = self.get_prompt_ref(key)
         if version is None:
             v, path = self._latest_version_pair(key, ref)
@@ -232,5 +239,3 @@ class FileSystemPromptStorage(StoragePort):
         if not path.exists():
             raise VersionNotFound(f"Version {version} not found for key: {key}")
         return path.read_text(encoding="utf-8")
-
-

@@ -23,5 +23,3 @@ def test_build_inline_diff_char() -> None:
     texts = [s.text for s in segs]
     assert ops == ["equal", "delete", "insert", "equal"]
     assert texts == ["a", "b", "x", "c"]
-
-

@@ -1,10 +1,9 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Optional
 
 
-def find_repo_root(start: Optional[Path] = None) -> Path:
+def find_repo_root(start: Path | None = None) -> Path:
     """Locate the repository root directory.
 
     Heuristics: ascend from ``start`` (or CWD) until a directory containing one of
@@ -24,5 +23,3 @@ def find_repo_root(start: Optional[Path] = None) -> Path:
             return parent
 
     return current
-
-

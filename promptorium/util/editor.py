@@ -28,5 +28,3 @@ def open_in_editor(seed_text: str = "") -> str:
         cmd = shlex.split(editor) + [str(tmp_path)]
         subprocess.run(cmd, check=True)
         return tmp_path.read_text(encoding="utf-8")
-
-

@@ -1,8 +1,9 @@
 from __future__ import annotations
 
+from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Literal, Optional, Sequence
+from typing import Literal
 
 
 @dataclass(frozen=True)
@@ -22,7 +23,7 @@ class PromptVersion:
 @dataclass(frozen=True)
 class PromptInfo:
     ref: PromptRef
-    versions: Sequence["PromptVersion"]  # sorted ascending
+    versions: Sequence[PromptVersion]  # sorted ascending
 
 
 DiffOp = Literal["equal", "insert", "delete"]
@@ -39,30 +40,22 @@ class DiffResult:
     key: str
     v1: int
     v2: int
-    segments: Sequence["DiffSegment"]
+    segments: Sequence[DiffSegment]
 
 
-class PromptError(Exception):
-    ...
+class PromptError(Exception): ...
 
 
-class PromptAlreadyExists(PromptError):
-    ...
+class PromptAlreadyExists(PromptError): ...
 
 
-class PromptNotFound(PromptError):
-    ...
+class PromptNotFound(PromptError): ...
 
 
-class VersionNotFound(PromptError):
-    ...
+class VersionNotFound(PromptError): ...
 
 
-class InvalidKey(PromptError):
-    ...
+class InvalidKey(PromptError): ...
 
 
-class NoContentProvided(PromptError):
-    ...
-
-
+class NoContentProvided(PromptError): ...

@@ -14,6 +14,11 @@ dependencies = [
   "typer>=0.12",
   "rich>=13.0",
 ]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Typing :: Typed",
+]
 
 [project.scripts]
 prompts = "promptorium.cli:app"
@@ -34,9 +39,11 @@ testpaths = ["tests"]
 [tool.ruff]
 line-length = 100
 target-version = "py312"
+extend-exclude = [".venv", "build", "dist"]
+
+[tool.ruff.lint]
 select = ["E", "F", "I", "UP"]
 ignore = []
-extend-exclude = [".venv", "build", "dist"]
 
 [tool.ruff.lint.isort]
 known-first-party = ["promptorium"]
@@ -61,5 +68,11 @@ include = [
   "promptorium/**",
   "promptorium/data/wordlist.txt",
 ]
+
+[tool.hatch.build.targets.wheel]
+packages = ["promptorium"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"promptorium/py.typed" = "promptorium/py.typed"
 
 

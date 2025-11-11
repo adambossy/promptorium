@@ -1,13 +1,13 @@
 from __future__ import annotations
 
 import re
+from collections.abc import Iterable, Sequence
 from difflib import SequenceMatcher
-from typing import Iterable, List, Sequence
 
 from ..domain import DiffSegment
 
 
-def _tokenize(text: str, *, granularity: str) -> List[str]:
+def _tokenize(text: str, *, granularity: str) -> list[str]:
     if granularity == "char":
         return list(text)
     # word granularity: keep whitespace and punctuation as separate tokens to preserve layout
@@ -30,7 +30,7 @@ def build_inline_diff(a: str, b: str, *, granularity: str = "word") -> Sequence[
     b_tokens = _tokenize(b, granularity=g)
     sm = SequenceMatcher(None, a_tokens, b_tokens, autojunk=False)
 
-    segments: List[DiffSegment] = []
+    segments: list[DiffSegment] = []
     for tag, i1, i2, j1, j2 in sm.get_opcodes():
         if tag == "equal":
             text = _coalesce(tag, a_tokens[i1:i2])
@@ -55,7 +55,7 @@ def build_inline_diff(a: str, b: str, *, granularity: str = "word") -> Sequence[
     # Merge adjacent segments of the same op to reduce noise
     if not segments:
         return []
-    merged: List[DiffSegment] = [segments[0]]
+    merged: list[DiffSegment] = [segments[0]]
     for seg in segments[1:]:
         last = merged[-1]
         if seg.op == last.op:
@@ -63,5 +63,3 @@ def build_inline_diff(a: str, b: str, *, granularity: str = "word") -> Sequence[
         else:
             merged.append(seg)
     return merged
-
-

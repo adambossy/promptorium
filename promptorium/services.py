@@ -1,7 +1,8 @@
 from __future__ import annotations
 
+from collections.abc import Sequence
 from pathlib import Path
-from typing import Optional, Sequence
+from typing import Literal, overload
 
 from .domain import (
     DiffResult,
@@ -22,7 +23,7 @@ class PromptService:
         self.s = storage
         self.s.ensure_initialized()
 
-    def add_prompt(self, key: Optional[str] = None, directory: Optional[Path] = None) -> PromptRef:
+    def add_prompt(self, key: str | None = None, directory: Path | None = None) -> PromptRef:
         if key is None:
             key = generate_unique_key(self.s)
         if not is_valid_key(key):
@@ -41,12 +42,18 @@ class PromptService:
     def list_prompts(self) -> Sequence[PromptInfo]:
         return self.s.list_prompts()
 
-    def delete_prompt(self, key: str, delete_all: bool = False):
+    @overload
+    def delete_prompt(self, key: str, delete_all: Literal[False] = False) -> PromptVersion: ...
+
+    @overload
+    def delete_prompt(self, key: str, delete_all: Literal[True]) -> int: ...
+
+    def delete_prompt(self, key: str, delete_all: bool = False) -> PromptVersion | int:
         # Ensure key exists
         self.s.get_prompt_ref(key)
         return self.s.delete_all(key) if delete_all else self.s.delete_latest(key)
 
-    def load_prompt(self, key: str, version: Optional[int] = None) -> str:
+    def load_prompt(self, key: str, version: int | None = None) -> str:
         return self.s.read_version(key, version)
 
     def diff_versions(self, key: str, v1: int, v2: int, *, granularity: str = "word") -> DiffResult:
@@ -55,5 +62,3 @@ class PromptService:
         g = "word" if granularity not in ("word", "char") else granularity
         segs = build_inline_diff(a, b, granularity=g)
         return DiffResult(key=key, v1=v1, v2=v2, segments=segs)
-
-

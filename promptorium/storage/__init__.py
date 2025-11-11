@@ -4,5 +4,3 @@ from .base import StoragePort
 from .fs import FileSystemPromptStorage
 
 __all__ = ["StoragePort", "FileSystemPromptStorage"]
-
-

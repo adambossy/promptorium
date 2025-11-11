@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
+from collections.abc import Sequence
 from pathlib import Path
-from typing import Optional, Sequence
 
 from ..domain import PromptInfo, PromptRef, PromptVersion
 
@@ -17,7 +17,9 @@ class StoragePort(ABC):
         ...
 
     @abstractmethod
-    def add_prompt(self, key: str, custom_dir: Optional[Path]) -> PromptRef:  # pragma: no cover - interface only
+    def add_prompt(
+        self, key: str, custom_dir: Path | None
+    ) -> PromptRef:  # pragma: no cover - interface only
         ...
 
     @abstractmethod
@@ -29,7 +31,9 @@ class StoragePort(ABC):
         ...
 
     @abstractmethod
-    def write_new_version(self, key: str, content: str) -> PromptVersion:  # pragma: no cover - interface only
+    def write_new_version(
+        self, key: str, content: str
+    ) -> PromptVersion:  # pragma: no cover - interface only
         ...
 
     @abstractmethod
@@ -41,7 +45,7 @@ class StoragePort(ABC):
         ...
 
     @abstractmethod
-    def read_version(self, key: str, version: Optional[int]) -> str:  # pragma: no cover - interface only
+    def read_version(
+        self, key: str, version: int | None
+    ) -> str:  # pragma: no cover - interface only
         ...
-
-

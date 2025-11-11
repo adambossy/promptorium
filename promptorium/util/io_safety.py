@@ -31,5 +31,3 @@ def atomic_write_text(path: Path, content: str, encoding: str = "utf-8") -> None
                 os.remove(tmp_name)
         except OSError:
             pass
-
-

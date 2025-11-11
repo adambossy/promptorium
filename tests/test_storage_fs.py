@@ -66,5 +66,3 @@ def test_delete_latest_and_all(tmp_path: Path) -> None:
     assert count2 == 1
     assert custom.exists()
     assert not (custom / "beta-1.md").exists()
-
-
