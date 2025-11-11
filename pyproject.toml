@@ -3,7 +3,7 @@ requires = ["hatchling>=1.21"]
 build-backend = "hatchling.build"
 
 [project]
-name = "promptorium"
+name = "promptorium-python"
 version = "0.1.0"
 description = "CLI + library for managing versioned prompts"
 readme = "README.md"

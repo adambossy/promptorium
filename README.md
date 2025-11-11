@@ -1,13 +1,13 @@
 <div align="center">
 
-# Promptorium
+# promptorium
 
 CLI and Python library for managing versioned prompts: add, update, list, diff, load, and delete prompt versions on your filesystem.
 
 <p align="center">
-  <a href="https://github.com/adambossy/promptorium/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+  <a href="https://github.com/adambossy/promptorium-python/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
   &middot;
-  <a href="https://github.com/adambossy/promptorium/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+  <a href="https://github.com/adambossy/promptorium-python/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
   <br />
   <br />
 </p>
@@ -43,7 +43,7 @@ CLI and Python library for managing versioned prompts: add, update, list, diff, 
 
 ## About the Project
 
-Promptorium helps you keep your prompts versioned alongside your code. It stores each prompt as an incrementing Markdown file and gives you a clean CLI to add, edit, list, diff, load, and delete versions. You can use a repo-local `.prompts` folder or map each key to a custom directory you control.
+promptorium-python helps you keep your prompts versioned alongside your code. It stores each prompt as an incrementing Markdown file and gives you a clean CLI to add, edit, list, diff, load, and delete versions. You can use a repo-local `.prompts` folder or map each key to a custom directory you control.
 
 ### Features
 
