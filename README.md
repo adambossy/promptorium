@@ -132,6 +132,8 @@ Notes:
 
 ## Usage (Library)
 
+Common use case: Load a prompt in your codebase
+
 ```python
 from openai import OpenAI
 from promptorium import load_prompt
@@ -146,6 +148,31 @@ response = client.responses.create(
 )
 
 print(response.output_text)
+```
+
+Advanced use case: Manage prompts via code instead of CLI
+
+```python
+from promptorium.services import PromptService
+from promptorium.storage.fs import FileSystemPromptStorage
+from promptorium.util.repo_root import find_repo_root
+
+storage = FileSystemPromptStorage(find_repo_root())
+svc = PromptService(storage)
+
+# Ensure a key exists (create with custom directory or default .prompts)
+ref = storage.add_prompt("onboarding", custom_dir=None)
+
+# Write versions
+v1 = svc.update_prompt("onboarding", "hello")
+v2 = svc.update_prompt("onboarding", "hello world")
+
+# Read latest or specific version
+latest_text = svc.load_prompt("onboarding")
+v1_text = svc.load_prompt("onboarding", version=1)
+
+# Build an inline diff result (rendered by CLI with rich colors)
+res = svc.diff_versions("onboarding", 1, 2, granularity="word")
 ```
 
 ---
