@@ -36,6 +36,9 @@ classifiers = [
   "Typing :: Typed",
 ]
 
+[project.urls]
+repository = "https://github.com/adambossy/promptorium-python"
+
 [project.scripts]
 prompts = "promptorium.cli:app"
 
