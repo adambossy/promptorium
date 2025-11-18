@@ -195,7 +195,20 @@ res = svc.diff_versions("onboarding", 1, 2, granularity="word")
 Run tests:
 
 ```bash
-pytest -q
+uv run pytest -q
+```
+
+Run linting, formatting and type checking manually:
+
+```bash
+# Ruff (lint)
+uv run ruff check .
+
+# Ruff (format)
+uv run ruff format .
+
+# Mypy (type checking)
+uv run mypy .
 ```
 
 Project configuration highlights:
