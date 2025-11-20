@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.2] - 2025-01-XX
+
+### Changed
+- Improved error message when adding a prompt with an existing key:
+  - Now includes guidance on how to resolve the conflict.
+  - Shows the directory where the existing prompt is stored.
+
 ## [0.1.1] - 2025-01-XX
 
 ### Added
@@ -41,6 +48,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Filesystem-based storage backend with metadata management
 - Type hints throughout the codebase (`py.typed` marker included)
 
+[0.1.2]: https://github.com/adambossy/promptorium-python/releases/tag/v0.1.2
 [0.1.1]: https://github.com/adambossy/promptorium-python/releases/tag/v0.1.1
 [0.1.0]: https://github.com/adambossy/promptorium-python/releases/tag/v0.1.0
 
