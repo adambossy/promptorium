@@ -5,14 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.1.2] - 2025-01-XX
+## [0.1.2] - 2025-11-20
 
 ### Changed
 - Improved error message when adding a prompt with an existing key:
   - Now includes guidance on how to resolve the conflict.
   - Shows the directory where the existing prompt is stored.
 
-## [0.1.1] - 2025-01-XX
+## [0.1.1] - 2025-11-18
 
 ### Added
 - Keywords to `pyproject.toml` for better PyPI discoverability
@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - MIT License file (`LICENSE`)
 - Changelog file (`CHANGELOG.md`)
 
-## [0.1.0] - 2025-01-XX
+## [0.1.0] - 2025-11-18
 
 ### Added
 - CLI tool (`prompts`) for managing versioned prompts
