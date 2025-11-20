@@ -29,7 +29,11 @@ class PromptService:
         if not is_valid_key(key):
             raise InvalidKey(f"Invalid key: {key}")
         if self.s.key_exists(key):
-            raise PromptAlreadyExists(key)
+            ref = self.s.get_prompt_ref(key)
+            raise PromptAlreadyExists(
+                f"Prompt with key '{key}' already exists in directory '{ref.base_dir}'. "
+                "Use a different --key or delete the existing prompt using --all first."
+            )
         return self.s.add_prompt(key, directory)
 
     def update_prompt(self, key: str, content: str) -> PromptVersion:
